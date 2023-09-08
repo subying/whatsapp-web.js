@@ -410,6 +410,10 @@ declare namespace WAWebJS {
         ffmpegPath?: string,
         /** Object with proxy autentication requirements @default: undefined */
         proxyAuthentication?: {username: string, password: string} | undefined
+        /** 检测是否登录成功的网页选择器  */
+        introImgSelector?: string;
+        /** 二维码的网页选择器  */
+        introQrCodeSelector?: string;
     }
 
     export interface LocalWebCacheOptions {
