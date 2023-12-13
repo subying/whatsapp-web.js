@@ -19,7 +19,7 @@ exports.DefaultOptions = {
     ffmpegPath: 'ffmpeg',
     bypassCSP: false,
     proxyAuthentication: undefined,
-    introImgSelector: "[data-icon='chat'],[data-icon='new-chat']",
+    introImgSelector: "[data-icon='chat'],[data-icon='new-chat'],[data-icon='search']",
     introQrCodeSelector: 'div[data-ref] canvas',
 };
 
