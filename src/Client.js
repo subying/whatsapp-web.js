@@ -754,7 +754,9 @@ class Client extends EventEmitter {
         } else {
             this.pupPage.on('response', async (res) => {
                 if(res.ok() && res.url() === WhatsWebURL) {
-                    await webCache.persist(await res.text());
+                    setTimeout(async () => {
+                        await webCache.persist(await res.text(), await this.getWWebVersion());
+                    }, 5000);
                 }
             });
         }
@@ -792,7 +794,7 @@ class Client extends EventEmitter {
      */
     async getWWebVersion() {
         return await this.pupPage.evaluate(() => {
-            return window.Debug.VERSION;
+            return (window.Debug || {}).VERSION;
         });
     }
 

@@ -29,8 +29,7 @@ class LocalWebCache extends WebCache {
         }
     }
 
-    async persist(indexHtml) {
-        const webVersion = parseFloat(window.Debug.VERSION);
+    async persist(indexHtml, webVersion) {
         let version = '';
         if (webVersion < 2.3) {
             // extract version from index (e.g. manifest-2.2206.9.json -> 2.2206.9)
