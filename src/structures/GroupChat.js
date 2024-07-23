@@ -359,7 +359,8 @@ class GroupChat extends Chat {
     async getInviteCode() {
         const codeRes = await this.client.pupPage.evaluate(async chatId => {
             const chatWid = window.Store.WidFactory.createWid(chatId);
-            return window.Store.GroupInvite.queryGroupInviteCode(chatWid);
+            const group = await window.Store.Chat.find(chatWid);
+            return window.Store.GroupInvite.queryGroupInviteCode(chatWid, group.iAmAdmin());
         }, this.id._serialized);
 
         return codeRes.code;
