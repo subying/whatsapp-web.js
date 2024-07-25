@@ -162,6 +162,17 @@ exports.LoadUtils = () => {
     };
 
     window.WWebJS.sendMessage = async (chat, content, options = {}) => {
+        const meUser = window.Store.User.getMaybeMeUser();
+        const isMD = window.Store.MDBackend;
+        const newId = await window.Store.MsgKey.newId();
+        
+        const newMsgId = new window.Store.MsgKey({
+            from: meUser,
+            to: chat.id,
+            id: newId,
+            participant: isMD && chat.id.isGroup() ? meUser : undefined,
+            selfDir: 'out',
+        });
         let attOptions = {};
         if (options.attachment) {
             attOptions = options.sendMediaAsSticker
@@ -282,6 +293,7 @@ exports.LoadUtils = () => {
             delete options.linkPreview;
             const link = window.Store.Validators.findLink(content);
             if (link) {
+                link.id = newId;
                 let preview = await window.Store.LinkPreview.getLinkPreview(link);
                 if (preview && preview.data) {
                     preview = preview.data;
@@ -331,18 +343,6 @@ exports.LoadUtils = () => {
             delete options.list;
             delete listOptions.list.footer;
         }
-
-        const meUser = window.Store.User.getMaybeMeUser();
-        const isMD = window.Store.MDBackend;
-        const newId = await window.Store.MsgKey.newId();
-        
-        const newMsgId = new window.Store.MsgKey({
-            from: meUser,
-            to: chat.id,
-            id: newId,
-            participant: isMD && chat.id.isGroup() ? meUser : undefined,
-            selfDir: 'out',
-        });
 
         const extraOptions = options.extraOptions || {};
         delete options.extraOptions;
