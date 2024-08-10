@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       release_type:
-        description: "`alpha`, `alpha-minor`, `alpha-major` release?"
+        description: "`alpha`, `alpha-minor`, `alpha-major`, `release-minor`, `release-patch` release?"
         required: true
         default: "alpha"
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: ${{ github.repository == 'pedroslopez/whatsapp-web.js' }}
+    if: ${{ github.repository == 'subying/wsweb.js' }}
     steps:
       - uses: actions/checkout@v2
         with:
